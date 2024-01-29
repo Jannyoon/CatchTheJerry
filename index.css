@@ -1,0 +1,163 @@
+:root {
+  --color-text : white;
+  --color-accent : #D94436;
+  
+  --restart-Pause-Button :#F2B705;
+  
+  --popUp-width : 400px;
+  --popUp-height : 200px;
+  --popUp-startColor : #f2b705;
+  --popUp-refreshColor : #735145;
+
+  --color-timer : white;
+  --color-score : #8FC4D9;
+}
+
+body {
+  width : 100vw;
+  height : 100vh;
+  box-sizing: border-box;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor : pointer;
+}
+
+.container {
+  margin : auto;
+  width : 600px;
+  height : 400px;
+  background: url('./img/table.jpg');
+  background-size: cover;
+  background-position: center;
+
+  display : flex;
+  flex-direction: column;
+}
+
+.field__ButtonScore {
+  width : 100%;
+  height : 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0px;
+}
+
+.gameBtn{
+  width : 50px;
+  height : 50px;
+  font-size: 30px;
+  border : 3px solid white;
+  border-radius: 10px;
+  background-color: var(--restart-Pause-Button);
+  
+}
+.gameTimer{
+  margin : 3px;
+  display: block;
+  background-color: var(--color-timer);
+  font-size : 1.8rem; 
+  font-weight: bold;
+  border : 5px solid var(--restart-Pause-Button);
+  border-radius: 20px;
+  padding :3px 20px;  
+}
+.gameScore{
+  margin : 3px;
+  width : 60px;
+  height : 50px;
+  line-height: 50px;
+  text-align : center;  
+  font-size : 30px; 
+  font-weight: bold;
+  
+  background-color: var(--color-score);
+  border: 3px solid var(--color-text);
+  border-radius : 20%; 
+  padding : 0px 4px;
+}
+
+.field__MouseCheese {
+  width : 100%;
+  height : 100%;
+  opacity: 0.4;
+  margin-top : 100px;
+
+
+}
+
+.popUp {
+  margin : auto;
+}
+
+.first__scene {
+  width : var(--popUp-width);
+  height : var(--popUp-height);
+  border : 6px solid black;
+  border-radius: 20px;
+  background-color: var(--popUp-startColor);
+  transform: translateY(-150%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.startimg {
+  width : 170px;
+  height : 140px;
+}
+
+.startBtn {
+  font-size: 30px;
+  padding : 3px 20px;
+  border-radius: 20px;
+}
+
+.startBtn:hover{
+  background-color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+.refresh__scene {
+  width : var(--popUp-width);
+  height : var(--popUp-height);
+  background-color: var(--popUp-refreshColor);
+  border : 6px solid var(--popUp-startColor);
+  border-radius: 50%;
+  transform: translateY(-150%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.refreshBtn {
+  margin : 10px;
+  font-size: 30px;
+  padding : 3px 20px;
+  border-radius: 20px;
+}
+
+.refreshBtn:hover{
+  background-color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+
+
+/*팝업(start, refresh) & 게임(pause-Btn, timer, score) 숨기는용 */
+.popUp--hide {
+  display: none;
+}
+
+.game--hide {
+  visibility: hidden;
+}
