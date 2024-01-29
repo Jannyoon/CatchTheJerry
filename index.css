@@ -53,9 +53,14 @@ button {
   font-size: 30px;
   border : 3px solid white;
   border-radius: 10px;
-  background-color: var(--restart-Pause-Button);
-  
+  background-color: var(--restart-Pause-Button); 
 }
+
+.gameBtn:hover{
+  background-color : var(--color-accent);
+  transform: scale(1.1);
+}
+
 .gameTimer{
   margin : 3px;
   display: block;
