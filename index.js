@@ -1,3 +1,7 @@
+'use strict';
+import * as audio from './src/sound.js';
+
+
 const JERRY_COUNT = 5;
 const CHEESE_COUNT = 5;
 const ITEM_SIZE = 70;
@@ -71,6 +75,7 @@ refreshBtn.addEventListener('click',()=>{
 function startGame(){
   score = 0;
   timer = undefined;
+  audio.play(audio.bgSound);
   
   state==='gaming' ?
   hidePopup(firstScene) :
@@ -86,10 +91,26 @@ function startGame(){
 function stopGame(result){
   state = 'end';
   remainingSec = null; //남은 시간 초기화
+  audio.stop(audio.bgSound);
   stopTimer();
   hideScoreTimerField();
   hideGame();
   showPopup(refreshScene, result);
+  playResultSound(result);
+}
+
+function playResultSound(result){
+  switch(result){
+    case resultList.success :
+      audio.play(audio.successSound);
+      break;
+    case resultList.fail :
+      audio.play(audio.failSound);
+      break;
+    default :
+      break;
+  }
+  return;
 }
 
 //popUpList : firstPopUp & refreshPopUp
@@ -176,12 +197,17 @@ function onItemClick(e){
   if (target.matches(`.${itemList.jerry}`)){
     score++;
     target.remove();
+    audio.play(audio.clickSound);
     showScore(); //점수 실시간으로 update함
     console.log("제리");
   }
   else if (target.matches(`.${itemList.cheese}`)){
+    audio.play(audio.clickSound);
     stopGame(resultList.fail);
     console.log("치즈");
+  }
+  else {
+    return;
   }
 
 }
