@@ -2,6 +2,7 @@ const JERRY_COUNT = 5;
 const CHEESE_COUNT = 5;
 const ITEM_SIZE = 70;
 
+
 const itemList = Object.freeze({
   jerry : "jerry",
   cheese : "cheese"
@@ -15,7 +16,7 @@ const gameScore = document.querySelector('.gameScore');
 const gameField = document.querySelector('.field__MouseCheese');
 const gameFieldSize = gameField.getBoundingClientRect();
 const gameFieldWidth = gameFieldSize.width-ITEM_SIZE;
-const gameFieldHeight = gameFieldSize.height-ITEM_SIZE;
+const gameFieldHeight = gameFieldSize.height-ITEM_SIZE-25;
 
 const firstScene = document.querySelector('.first__scene');
 const startBtn = document.querySelector('.startBtn');
@@ -25,7 +26,8 @@ const refreshBtn = document.querySelector('.refreshBtn');
 
 //let start = false;
 let timer = undefined;
-let score = 0;
+let score = JERRY_COUNT;
+const gameDuration = 10;
 
 
 startBtn.addEventListener('click',()=>{
@@ -35,7 +37,7 @@ startBtn.addEventListener('click',()=>{
 
 function startGame(){
   popupHide(firstScene); //가장 첫 스타트 화면을 지운다.
-  showScoreField(); //점수, 정지버튼, 타이머를 보여준다.
+  showScoreTimerField(); //점수, 정지버튼, 타이머를 보여준다.
   initGame();
 }
 
@@ -44,8 +46,29 @@ function popupHide(node){
   node.classList.add('popUp--hide');
 }
 
-function showScoreField(){
+function showScoreTimerField(){ 
   scoreField.classList.remove('game--hide');
+  startTimer();
+  showScore();
+}
+
+function startTimer(){
+  let remainingSec = gameDuration; //시간 초기화
+  showRemainingTime(remainingSec);
+  timer = setInterval(()=>{
+    if (remainingSec<=0) return;
+    showRemainingTime(--remainingSec);
+  },1000);
+}
+
+function showRemainingTime(time){
+  const minute = Math.floor(time/60);
+  const sec = Math.floor(time%60);
+  gameTimer.innerText = `${String(minute).padStart(2,'0')}:${String(sec).padStart(2,'0')}`
+}
+
+function showScore(){
+  gameScore.innerText = score;
 }
 
 //필드에 아이템 생성
