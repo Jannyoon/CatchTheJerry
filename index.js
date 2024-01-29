@@ -28,6 +28,7 @@ const startBtn = document.querySelector('.startBtn');
 
 const refreshScene = document.querySelector('.refresh__scene');
 const refreshBtn = document.querySelector('.refreshBtn');
+const refreshHover = document.querySelector('.hover');
 
 let state = 'gaming';
 let timer = undefined;
@@ -62,16 +63,29 @@ gameField.addEventListener('click',(event)=>{
   onItemClick(event);
 })
 
+
+refreshBtn.addEventListener('click',()=>{
+  startGame();
+})
+
 function startGame(){
   score = 0;
   timer = undefined;
-  hidePopup(firstScene); //가장 첫 스타트 화면을 지운다.
+  
+  state==='gaming' ?
+  hidePopup(firstScene) :
+  hidePopup(refreshScene);
+   //가장 첫 스타트 화면을 지운다.
+
+  state='gaming';
   showScoreTimerField(); //점수, 정지버튼, 타이머를 보여준다.
+  showGame();
   initGame();
 }
 
 function stopGame(result){
   state = 'end';
+  remainingSec = null; //남은 시간 초기화
   stopTimer();
   hideScoreTimerField();
   hideGame();
@@ -152,6 +166,7 @@ function showScore(){
 
 //필드에 아이템 생성
 function initGame(){
+  gameField.innerHTML='';
   addItem(itemList.jerry, JERRY_COUNT);
   addItem(itemList.cheese, CHEESE_COUNT);
 }
