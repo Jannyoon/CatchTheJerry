@@ -7,6 +7,11 @@ const itemList = Object.freeze({
   cheese : "cheese"
 });
 
+const resultList = Object.freeze({
+  success : 'SUCCESS!',
+  fail : 'REGAME?'
+})
+
 const scoreField = document.querySelector('.field__ButtonScore');
 const gameBtn = document.querySelector('.gameBtn');
 const icon = document.querySelector('.fa-solid');
@@ -60,15 +65,35 @@ gameField.addEventListener('click',(event)=>{
 function startGame(){
   score = 0;
   timer = undefined;
-  popupHide(firstScene); //가장 첫 스타트 화면을 지운다.
+  hidePopup(firstScene); //가장 첫 스타트 화면을 지운다.
   showScoreTimerField(); //점수, 정지버튼, 타이머를 보여준다.
   initGame();
 }
 
+function stopGame(result){
+  state = 'end';
+  stopTimer();
+  hideScoreTimerField();
+  hideGame();
+  showPopup(refreshScene, result);
+}
+
 //popUpList : firstPopUp & refreshPopUp
-function popupHide(node){
+function showPopup(node, result){
+  node.classList.remove('popUp--hide');
+  updatePopupText(result);
+}
+
+
+function updatePopupText(text){
+  refreshBtn.innerText = text;
+}
+
+function hidePopup(node){
   node.classList.add('popUp--hide');
 }
+
+
 
 function showScoreTimerField(){ 
   scoreField.classList.remove('game--hide');
@@ -76,11 +101,26 @@ function showScoreTimerField(){
   showScore();
 }
 
+function hideScoreTimerField(){ 
+  scoreField.classList.add('game--hide');
+  stopTimer();
+}
+
+
 function startTimer(){
   if (remainingSec===null) remainingSec = gameDuration; //시간 초기화
   showRemainingTime(remainingSec);
   timer = setInterval(()=>{
-    if (remainingSec<=0) return;
+    if (score===JERRY_COUNT){
+      stopGame(resultList.success);
+      return;
+    }
+    if (remainingSec<=0){
+      score===JERRY_COUNT ?
+      stopGame(resultList.success):
+      stopGame(resultList.fail);
+      return;
+    }
     showRemainingTime(--remainingSec);
   },1000);
 }
@@ -109,6 +149,7 @@ function showScore(){
   gameScore.innerText = JERRY_COUNT-score;
 }
 
+
 //필드에 아이템 생성
 function initGame(){
   addItem(itemList.jerry, JERRY_COUNT);
@@ -123,7 +164,10 @@ function onItemClick(e){
     showScore(); //점수 실시간으로 update함
     console.log("제리");
   }
-  else if (target.matches(`.${itemList.cheese}`)) console.log("치즈");
+  else if (target.matches(`.${itemList.cheese}`)){
+    stopGame(resultList.fail);
+    console.log("치즈");
+  }
 
 }
 
