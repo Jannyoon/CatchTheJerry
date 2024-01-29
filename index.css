@@ -37,6 +37,11 @@ button {
   flex-direction: column;
 }
 
+.popUp{
+  margin : auto;
+}
+
+
 .field__ButtonScore {
   width : 100%;
   height : 100%;
