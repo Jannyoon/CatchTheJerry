@@ -84,9 +84,9 @@ button {
 .field__MouseCheese {
   width : 100%;
   height : 100%;
-  opacity: 0.4;
-  margin-top : 100px;
-
+  margin-top : 40px;
+  background-color: #8fc4d9c1;
+  position: relative;
 
 }
 
@@ -149,6 +149,17 @@ button {
 .refreshBtn:hover{
   background-color: var(--color-accent);
   transform: scale(1.1);
+}
+
+
+
+.item {
+  cursor : pointer;
+}
+
+.item:hover {
+  transform: scale(1.1);
+  
 }
 
 
